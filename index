@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUNICODE - Sitios Turísticos en Centroamérica</title>
+  <style>
+    body {
+      font-family: Britannic Bold, candara;
+    }
+    .container { 
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .menu {
+      margin-bottom: 40px;
+    }
+    .menu a {
+      margin-right: 20px;
+      text-decoration: none;
+      color: #052707d7;
+    }
+    .menu a:hover {
+      font-weight: bold;
+    }
+    .site-info {
+      border: 3px solid #7a0707d0;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="menu">
+    <a href="#" onclick="showRegistrationForm()">Registrar Sitio</a>
+    <a href="#" onclick="showSites()">Mostrar Sitios</a>
+  </div>
+
+  <div id="registrationForm" style="display: none;">
+    <h2>Registro de Sitio Turístico</h2>
+    <form id="siteForm">
+      <label for="pais">País:</label>
+      <select id="pais">
+        <option value="Costa Rica">Costa Rica</option>
+        <option value="El Salvador">El Salvador</option>
+        <option value="Guatemala">Guatemala</option>
+        <option value="Costa Rica">Costa Rica</option>
+        <option value="El Salvador">El Salvador</option>
+        <option value="Guatemala">Guatemala</option>
+      </select><br><br>
+
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" required><br><br>
+
+      <label for="horario">Horario:</label>
+      <input type="text" id="horario" required><br><br>
+
+      <label for="descripcion">Descripción:</label><br>
+      <textarea id="descripcion" rows="5" cols="40" required></textarea><br><br>
+
+      <button type="button" onclick="registerSite()">Registrar</button>
+    </form>
+  </div>
+
+  <div id="siteList" style="display: none;">
+    <h2>Sitios Turísticos</h2>
+    <div id="sites"></div>
+  </div>
+</div>
+
+<script>
+  const sites = [];
+
+  function showRegistrationForm() {
+    document.getElementById('registrationForm').style.display = 'block';
+    document.getElementById('siteList').style.display = 'none';
+  }
+
+  function showSites() {
+    document.getElementById('registrationForm').style.display = 'none';
+    document.getElementById('siteList').style.display = 'block';
+    displaySites();
+  }
+
+  function registerSite() {
+    const pais = document.getElementById('pais').value;
+    const nombre = document.getElementById('nombre').value;
+    const horario = document.getElementById('horario').value;
+    const descripcion = document.getElementById('descripcion').value;
+
+    const site = {
+      pais,
+      nombre,
+      horario,
+      descripcion,
+      likes: 0
+    };
+
+    sites.push(site);
+    displaySites();
+  }
+
+  function displaySites() {
+    const sitesDiv = document.getElementById('sites');
+    sitesDiv.innerHTML = '';
+
+    for (let i = 0; i < sites.length; i++) {
+      const site = sites[i];
+      const siteDiv = document.createElement('div');
+      siteDiv.classList.add('site-info');
+
+      siteDiv.innerHTML = `
+        <h3>${site.nombre} (${site.pais})</h3>
+        <p><strong>Horario:</strong> ${site.horario}</p>
+        <p><strong>Descripción:</strong> ${site.descripcion}</p>
+        <p><strong>Likes:</strong> ${site.likes}</p>
+        <button onclick="likeSite(${i})">Dar Like</button>
+      `;
+
+      sitesDiv.appendChild(siteDiv);
+    }
+  }
+
+  function likeSite(index) {
+    sites[index].likes++;
+    displaySites();
+  }
+  </script>
+</body>
+</html>
