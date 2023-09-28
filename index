@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MUNICODE - Sitios Turísticos en Centroamérica</title>
   <style>
+    /* Estilos CSS para hacerlo más atractivo */
     body {
       font-family: Britannic Bold, candara;
     }
@@ -128,6 +129,7 @@
     sites[index].likes++;
     displaySites();
   }
-  </script>
+</script>
+<h4> Elaborado por Michimami Software </h4>
 </body>
 </html>
